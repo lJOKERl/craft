@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="style/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT:700" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+</head>
+<body>
+
+  <div id="homepage">
+
+    <div v-if="showPound" class="pond pointer"  @click="showModal = !showModal"></div>
+    <div v-if="showShed" class="shed pointer"></div>
+    <div v-if="showCastle" class="castle pointer"></div>
+
+    <div v-if="showMenu" id="total">
+      {{ total }}
+    </div>
+
+    <div id="menu_button" @click="showMenu = !showMenu">
+      <img src="images/menu_btn.png" alt="">
+    </div>
+
+    <div v-if="showMenu" class="menu_bg">
+      <div class="menu_item" v-if="!showPound"  @click="showPound = !showPound;">
+        <img src="images/pond.png" alt="">
+        Прудик
+        {{ prices.pond }}
+      </div>
+      <div class="menu_item" v-if="!showShed"  @click="showShed = !showShed"> 
+        <img src="images/shed.png" alt="">
+        Сарайчик
+        {{ prices.shed }}
+      </div>
+      <div class="menu_item" v-if="!showCastle"  @click="showCastle = !showCastle">
+        <img src="images/castle.png" alt="">
+        Дворец
+        {{ prices.castle }}
+      </div>
+      <span class="close" @click="showMenu = !showMenu">Закрыть</span>
+    </div>
+
+    <div v-if="showModal" id="window">
+      <div class="dialog_title">
+        <p>Поймано рыбы: {{ arts.fishing }}</p>
+        <span @click="showModal = !showModal" class="dialog_close">X</span>
+      </div>
+    
+      <div class="fish" @click="showFishModal = !showFishModal" style="left: 20%"></div>
+      <div class="fish" @click="showFishModal = !showFishModal" style="left: 70%; top: 28%"></div>
+      <div class="fish" @click="showFishModal = !showFishModal" style="left: 50%; top: 40%"></div>
+    
+    </div>
+
+    <div v-if="showFishModal" id="fish">
+      <div class="dialog_title">
+        <span @click="showFishModal = !showFishModal" class="dialog_close">X</span>
+      </div>
+
+      <img src="images/crusian.jpg" class="fish_type" alt="">
+    
+    </div>
+    <div v-if="showFishModal" @click="showFishModal = !showFishModal" id="bg" class="win_fish"></div>
+    <div v-if="showModal" @click="showModal = !showModal" id="bg"></div>
+  </div>
+
+  <script src="script/script.js"></script>
+  
+</body>
+</html>
