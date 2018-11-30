@@ -14,6 +14,18 @@
 
   <div id="homepage">
 
+    <!----- Верхнее меню НАЧАЛО ------>
+
+    <div class="top_menu">
+      <div class="bag" @click="bagModal = !bagModal">
+        <img src="images/bag.png" alt="">
+      </div>
+    </div>
+
+    <!----- Верхнее меню КОНЕЦ ------>
+
+
+    
     <div v-if="showPound" class="pond pointer"  @click="showModal = !showModal"></div>
     <div v-if="showShed" class="shed pointer"></div>
     <div v-if="showCastle" class="castle pointer"></div>
@@ -42,10 +54,33 @@
         Дворец
         {{ prices.castle }}
       </div>
-      <span class="close">Закрыть</span>
+      <span class="close" @click="showMenu = !showMenu">Закрыть</span>
     </div>
 
-    <div v-if="showModal" id="window">
+    <!----- Окно рюкзака НАЧАЛО ------>
+
+    <div v-if="bagModal" id="bag">
+      <div class="dialog_title">
+        <p>Рюкзак</p>
+        <span @click="bagModal = !bagModal" class="dialog_close">
+          <img src="images/close.svg" alt="">
+        </span>
+      </div>
+      <div class="content">
+        <div v-if="bag.fish" class="item">
+          <div v-html="fishes.crusian.image"></div>
+          <div class="counter">{{ bag.fish }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!----- Окно рюкзака КОНЕЦ ------->
+
+
+
+    <!----- Окно рыбалки НАЧАЛО ------>
+
+    <div v-if="showModal" id="fishing">
       <div class="dialog_title">
         <p>Поймано рыбы: {{ bag.fish }}</p>
         <p @click="skills.fishing.view = !skills.fishing.view">Профи</p>
@@ -53,34 +88,20 @@
           <img src="images/close.svg" alt="">
         </span>
       </div>
-    
+      
       <div class="fish" @click="getResourse(fishes.crusian.type, fishes.crusian.time)" style="left: 20%; bottom: 5%">
         <span v-if="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
           {{ fishes.crusian.type }}
         </span>
-        <span v-else="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
+        <span v-else="skills.fishing.view" @click.stop="showFishModal = !showFishModal" class="art_info">
           Рыба
         </span>
       </div>
-      <div class="fish" style="left: 70%; bottom: 18%">
-        <span v-if="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
-          {{ fishes.crusian.type }}
-        </span>
-        <span v-else="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
-          Рыба
-        </span>
-      </div>
-      <div class="fish" style="left: 50%; top: 85%">
-        <span v-if="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
-          {{ fishes.crusian.type }}
-        </span>
-        <span v-else="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
-          Рыба
-        </span>
-      </div>
-    
     </div>
+    <!-- --- Окно рыбалки КОНЕЦ ---- -->
 
+
+      
     <div v-show="showFishModal" id="fish">
       <div class="dialog_title">
         <span>{{ fishes.crusian.type }}</span>
@@ -93,6 +114,8 @@
         <img src="images/crusian.png" class="fish_type" alt="">
         <div>{{ fishes.crusian.description }}</div>
       </div>
+      
+      <div class="profy">Для ловли этой рыбы нужно мастерство {{ fishes.crusian.level }} уровня</div>
     
     </div>
 
@@ -107,13 +130,14 @@
       <div class="content">
         <div class="loader" v-bind:style="{ width: width + '%'}"></div>
       </div>
-      
+
       <div class="resut">{{ fishes.alert }}</div>
     
     </div>
     <div v-if="showFishModal" @click="showFishModal = !showFishModal" id="bg" class="win_fish"></div>
     <div v-if="showModal" @click="showModal = !showModal" id="bg"></div>
-    <div v-if="workModal" @click="workModal = !workModal" id="bg"></div>
+    <div v-if="workModal" @click="workModal = !workModal" id="bg" class="win_fish"></div>
+    <div v-if="bagModal" @click="bagModal = !bagModal" id="bg" class="win_fish"></div>
   </div>
 
   <script src="script/script.js"></script>

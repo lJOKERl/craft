@@ -4,8 +4,9 @@ new Vue({
     showMenu: false,
     showShed: false,
     showPound: false,
-    showModal: true,
+    showModal: false,
     workModal: false,
+    bagModal: false,
     showFishModal: false,
     showCastle: false,
     width: 0,
@@ -27,7 +28,9 @@ new Vue({
       alert: "",
       crusian: {
         type: "Карась",
+        image: "<img src='images/crusian.png' class='fish_type'>",
         time: 5000,
+        level: 1,
         title: "карася",
         description:
           "Карась – рыба достаточно осторожная, поэтому поймать иногда весьма сложно, но многие рыбаки стремятся к ловле именно этой рыбы, совершенствуя уже существующие техники."
@@ -37,22 +40,18 @@ new Vue({
   methods: {
     getResourse(type, time) {
       this.workModal = !this.workModal;
-      
-      
+      this.fishes.alert = "";
 
-      var timer = setInterval( () => {
-        
-        var width = this.width += 1;
-        if (width >= 100) {
+      var timer = setInterval(() => {
+        var width = (this.width += 1);
+        if (width >= 10) {
           clearInterval(timer);
 
           this.width = 0;
           this.bag.fish += 1;
-          this.fishes.alert = "Удачная рыбалка! Ваша добыча - " +  type;
-          
+          this.fishes.alert = "Удачная рыбалка! Ваша добыча - " + type;
         }
-      }, 100);
-      
+      }, 50);
     }
   }
 });
