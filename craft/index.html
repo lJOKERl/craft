@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="style/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT:700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i&amp;subset=cyrillic" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 
 </head>
@@ -42,31 +42,78 @@
         Дворец
         {{ prices.castle }}
       </div>
-      <span class="close" @click="showMenu = !showMenu">Закрыть</span>
+      <span class="close">Закрыть</span>
     </div>
 
     <div v-if="showModal" id="window">
       <div class="dialog_title">
-        <p>Поймано рыбы: {{ arts.fishing }}</p>
-        <span @click="showModal = !showModal" class="dialog_close">X</span>
+        <p>Поймано рыбы: {{ bag.fish }}</p>
+        <p @click="skills.fishing.view = !skills.fishing.view">Профи</p>
+        <span @click="showModal = !showModal" class="dialog_close">
+          <img src="images/close.svg" alt="">
+        </span>
       </div>
     
-      <div class="fish" @click="showFishModal = !showFishModal" style="left: 20%"></div>
-      <div class="fish" @click="showFishModal = !showFishModal" style="left: 70%; top: 28%"></div>
-      <div class="fish" @click="showFishModal = !showFishModal" style="left: 50%; top: 40%"></div>
+      <div class="fish" @click="getResourse(fishes.crusian.type, fishes.crusian.time)" style="left: 20%; bottom: 5%">
+        <span v-if="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
+          {{ fishes.crusian.type }}
+        </span>
+        <span v-else="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
+          Рыба
+        </span>
+      </div>
+      <div class="fish" style="left: 70%; bottom: 18%">
+        <span v-if="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
+          {{ fishes.crusian.type }}
+        </span>
+        <span v-else="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
+          Рыба
+        </span>
+      </div>
+      <div class="fish" style="left: 50%; top: 85%">
+        <span v-if="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
+          {{ fishes.crusian.type }}
+        </span>
+        <span v-else="skills.fishing.view" @click="showFishModal = !showFishModal" class="art_info">
+          Рыба
+        </span>
+      </div>
     
     </div>
 
-    <div v-if="showFishModal" id="fish">
+    <div v-show="showFishModal" id="fish">
       <div class="dialog_title">
-        <span @click="showFishModal = !showFishModal" class="dialog_close">X</span>
+        <span>{{ fishes.crusian.type }}</span>
+        <span @click="showFishModal = !showFishModal" class="dialog_close">
+          <img src="images/close.svg" alt="">
+        </span>
       </div>
+    
+      <div class="content">
+        <img src="images/crusian.png" class="fish_type" alt="">
+        <div>{{ fishes.crusian.description }}</div>
+      </div>
+    
+    </div>
 
-      <img src="images/crusian.jpg" class="fish_type" alt="">
+    <div v-show="workModal" id="work">
+      <div class="dialog_title">
+        <span>Ловим {{ fishes.crusian.title }}</span>
+        <span @click="workModal = !workModal" class="dialog_close">
+          <img src="images/close.svg" alt="">
+        </span>
+      </div>
+    
+      <div class="content">
+        <div class="loader" v-bind:style="{ width: width + '%'}"></div>
+      </div>
+      
+      <div class="resut">{{ fishes.alert }}</div>
     
     </div>
     <div v-if="showFishModal" @click="showFishModal = !showFishModal" id="bg" class="win_fish"></div>
     <div v-if="showModal" @click="showModal = !showModal" id="bg"></div>
+    <div v-if="workModal" @click="workModal = !workModal" id="bg"></div>
   </div>
 
   <script src="script/script.js"></script>
