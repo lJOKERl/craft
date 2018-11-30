@@ -44,7 +44,7 @@ new Vue({
 
       var timer = setInterval(() => {
         var width = (this.width += 1);
-        if (width >= 10) {
+        if (width >= 100) {
           clearInterval(timer);
 
           this.width = 0;
